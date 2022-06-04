@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  keycloak-server:
+    image: quay.io/keycloak/keycloak:latest
+    networks: 
+      - backend
+
+  identity-api:
+    build: ./src/Services/Identity/KeycloakDemo.Identity.Api/
+    links:
+      - keycloak-server
+    networks: 
+      - backend
+    depends_on:
+      - keycloak-server
+
+  operation-api:
+    build: ./src/Services/Operation/KeycloakDemo.Operation.Api/
+    networks: 
+      - backend
+    depends_on:
+      - identity-api
+  
+  jumpbox-app:
+    image: mcr.microsoft.com/dotnet/samples:aspnetapp
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+  

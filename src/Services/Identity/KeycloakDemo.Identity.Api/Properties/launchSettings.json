@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "KeyclockDemo.Identity.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "OAuth__ClientSecret": "DcUI46KReZEJWOWCB7qpKgi7Bu62bp77",
+        "OAuth__ClientId": "identity-api",
+        "OAuth__Scopes:0": "email",
+        "OAuth__Scopes:1": "profile",
+        "OAuth__Scopes:2": "roles",
+        "OAuth__Scopes:3": "operation",
+        "OAuth__MetadataUrl": "http://localhost:5005/realms/myrealm/.well-known/openid-configuration"
+      },
+      "applicationUrl": "https://localhost:7096;http://localhost:5096",
+      "dotnetRunMessages": true
+    }
+  }
+}

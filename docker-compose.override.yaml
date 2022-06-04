@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  keycloak-server:
+    container_name: keycloak-server
+    hostname: keycloak-server
+    ports:
+      - 5005:8080
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_HTTP_ENABLED=true
+      - KC_HEALTH_ENABLED=true
+    volumes:
+      - ./myrealm-realm.json:/opt/keycloak/data/import/myrealm-realm.json
+    entrypoint: ["/opt/keycloak/bin/kc.sh", "start-dev", "--import-realm"]
+  
+  identity-api:
+    container_name: identity-api
+    hostname: identity-api
+    ports:
+      - 5010:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - OAuth__MetadataUrl=http://keycloak-server:8080/realms/myrealm/.well-known/openid-configuration
+      - OAuth__ClientId=identity-api
+      - OAuth__ClientSecret=DcUI46KReZEJWOWCB7qpKgi7Bu62bp77
+      - OAuth__Scopes:0=email
+      - OAuth__Scopes:1=profile
+      - OAuth__Scopes:2=roles
+      - OAuth__Scopes:3=operation
+
+  operation-api:
+    container_name: operation-api
+    hostname: operation-api
+    ports:
+      - 5020:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - Authentication__Authority=http://keycloak-server:8080/realms/myrealm
+      - Authentication__Audience=identity-api
+
+  jumpbox-app:
+    container_name: jumpbox-app
+    hostname: jumpbox-app
+    ports:
+      - 8500:80

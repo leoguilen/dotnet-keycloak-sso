@@ -1,0 +1,14 @@
+﻿global using KeycloakDemo.Report.Api.Extensions;
+global using KeycloakDemo.Report.Api.Infra.Services;
+global using KeycloakDemo.Report.Api.Infra.Services.Impl;
+global using KeycloakDemo.Report.Api.Models;
+global using KeycloakDemo.Report.Api.Security;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.IdentityModel.Tokens;
+global using Microsoft.OpenApi.Models;
+global using System.Net.Http.Headers;
+global using System.Security.Claims;
+global using System.Text.Json.Nodes;
+global using System.Text.Json.Serialization;
+global using static KeycloakDemo.Report.Api.EndpointHandlers;
